@@ -1,10 +1,21 @@
-﻿namespace Tracer.Core;
+﻿using System.Text.Json.Serialization;
+using System.Xml.Serialization;
+namespace Tracer.Core;
 
+[Serializable]
 public class MethodInfo
 {
+    [XmlAttribute("name")]
+    [JsonPropertyName("name")]
     public string Name { get; }
+    [XmlAttribute("classname")]
+    [JsonPropertyName("classname")]
     public string ClassName { get; }
+    [XmlAttribute("time")]
+    [JsonPropertyName("time")]
     public long Time { get; private set; }
+    [XmlAttribute("methods")]
+    [JsonPropertyName("methods")]
     private List<MethodInfo> _methods;
 
     public IReadOnlyList<MethodInfo> Methods

@@ -8,4 +8,8 @@ public class TraceResult
     {
         Threads = list;
     }
+    private TraceResult()
+    {
+
+    }
 }
