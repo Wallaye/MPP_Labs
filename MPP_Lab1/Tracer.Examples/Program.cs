@@ -15,14 +15,26 @@ task2.Wait();
 task3.Wait();
 
 var result = tracer.GetTraceResult();
-JSONSerializer jSer = new JSONSerializer();
-using (FileStream file = new("Result.json", FileMode.Create))
+Console.WriteLine("Where to load results(1-Console, 2 - Files)?");
+var s = Console.ReadLine();
+if (s == "1")
 {
-    jSer.Serialize(result, file);
+    JSONSerializer jSer = new();
+    jSer.Serialize(result, Console.OpenStandardOutput());
+    Console.WriteLine();
+    XMLSerializer xSer = new();
+    xSer.Serialize(result, Console.OpenStandardOutput());
 }
-XMLSerializer xSer = new XMLSerializer();
-using (FileStream file = new("Result.xml", FileMode.Create))
+else
 {
-    xSer.Serialize(result, file);
+    JSONSerializer jSer = new JSONSerializer();
+    using (FileStream file = new("Result.json", FileMode.Create))
+    {
+        jSer.Serialize(result, file);
+    }
+    XMLSerializer xSer = new XMLSerializer();
+    using (FileStream file = new("Result.xml", FileMode.Create))
+    {
+        xSer.Serialize(result, file);
+    }
 }
-

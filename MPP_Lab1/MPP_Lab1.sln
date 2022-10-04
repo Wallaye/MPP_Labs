@@ -5,7 +5,9 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tracer.Core", "Tracer.Core\Tracer.Core.csproj", "{A5C4CAC4-5DFB-46E1-A4A3-64C270F23CB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracer.Examples", "Tracer.Examples\Tracer.Examples.csproj", "{0263E5FF-1A2C-43ED-897C-E2BB1381B398}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tracer.Examples", "Tracer.Examples\Tracer.Examples.csproj", "{0263E5FF-1A2C-43ED-897C-E2BB1381B398}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracer.Core.Tests", "Tracer.Core.Tests\Tracer.Core.Tests.csproj", "{3023E32F-0CD5-4E31-AD74-D5F9B51CC34E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{0263E5FF-1A2C-43ED-897C-E2BB1381B398}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0263E5FF-1A2C-43ED-897C-E2BB1381B398}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0263E5FF-1A2C-43ED-897C-E2BB1381B398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3023E32F-0CD5-4E31-AD74-D5F9B51CC34E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3023E32F-0CD5-4E31-AD74-D5F9B51CC34E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3023E32F-0CD5-4E31-AD74-D5F9B51CC34E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3023E32F-0CD5-4E31-AD74-D5F9B51CC34E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
