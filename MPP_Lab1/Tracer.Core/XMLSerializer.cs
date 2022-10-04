@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using System.Xml;
 
 namespace Tracer.Core
 {
@@ -6,10 +7,13 @@ namespace Tracer.Core
     {
         public void Serialize(TraceResult value, Stream stream)
         {
-            using (stream)
+            var xmlSettings = new XmlWriterSettings();
+            xmlSettings.Indent = true;
+            using (var xmlWriter = XmlWriter.Create(stream, xmlSettings))
             {
-                XmlSerializer ser = new(typeof(TraceResult));
-                ser.Serialize(stream, value);
+                XmlSerializer ser = new(typeof(TraceResult),
+                    new Type[] { typeof(MethodInfo), typeof(ThreadInfo)});
+                ser.Serialize(xmlWriter, value);
             }
         }
     }

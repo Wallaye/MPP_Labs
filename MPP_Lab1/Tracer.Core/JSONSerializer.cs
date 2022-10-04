@@ -13,7 +13,12 @@ namespace Tracer.Core
         {
             using (stream)
             {
-                var result = JsonSerializer.Serialize(value);
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                };
+                var result = JsonSerializer.Serialize(value, options);
+                stream.Write(Encoding.UTF8.GetBytes(result));
             }
         }
     }

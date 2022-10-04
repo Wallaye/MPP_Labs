@@ -3,33 +3,36 @@ using System.Xml.Serialization;
 namespace Tracer.Core;
 
 [Serializable]
+[XmlType(TypeName = "method")]
 public class MethodInfo
 {
-    [XmlAttribute("name")]
+    [XmlAttribute(AttributeName = "name")]
     [JsonPropertyName("name")]
-    public string Name { get; }
-    [XmlAttribute("classname")]
-    [JsonPropertyName("classname")]
-    public string ClassName { get; }
-    [XmlAttribute("time")]
+    public string Name { get; set; }
+    internal long Time { get; set; }
+    [XmlAttribute(AttributeName = "time")]
     [JsonPropertyName("time")]
-    public long Time { get; private set; }
-    [XmlAttribute("methods")]
-    [JsonPropertyName("methods")]
-    private List<MethodInfo> _methods;
-
-    public IReadOnlyList<MethodInfo> Methods
+    public string TimeString
     {
-        get => _methods;
+        get { return (Time.ToString() + "ms"); }
+        set { }
     }
+    [XmlAttribute(AttributeName = "classname")]
+    [JsonPropertyName("classname")]
+    public string ClassName { get; set; }
+    [XmlElement(ElementName = "method")]
+    [JsonPropertyName("methods")]
+    public List<MethodInfo> methods { get; set; }
 
     public MethodInfo(string name = "", string className = "", long time = 0)
     {
         Name = name;
         ClassName = className;
         Time = time;
-        _methods = new List<MethodInfo>();
+        methods = new List<MethodInfo>();
     }
+
+    private MethodInfo() { }
 
     internal void SetTime(long time)
     {
@@ -38,6 +41,6 @@ public class MethodInfo
 
     internal void AddMethod(MethodInfo method)
     { 
-        _methods.Add(method);
+        methods.Add(method);
     }
 }

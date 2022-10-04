@@ -33,10 +33,10 @@ public class ThreadTracer : ITracer<ThreadInfo>
 
     public void StopTrace()
     {
-        if (!_stack.TryPop(out MethodRes? child))
+        if (_stack.TryPop(out MethodRes? child))
         {
-            MethodInfo info = child!.info;
-            child.info.SetTime(child.tracer.GetTraceResult());
+            MethodInfo info = child.info;
+            child!.info.SetTime(child.tracer.GetTraceResult());
             if (_stack.TryPeek(out MethodRes? parent))
             {
                 parent.info.AddMethod(child.info);

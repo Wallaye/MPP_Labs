@@ -2,17 +2,24 @@
 using System.Xml.Serialization;
 namespace Tracer.Core;
 
+[Serializable]
+[XmlType(TypeName = "thread")]
 public class ThreadInfo
 {
-    [XmlAttribute("id")]
+    [XmlAttribute(AttributeName = "id")]
     [JsonPropertyName("id")]
     public int ThreadId { get; set; }
-    [XmlAttribute("time")]
+    [XmlAttribute(AttributeName = "time")]
     [JsonPropertyName("time")]
-    public long Time { get; set; }
-    [XmlAttribute("methods")]
+    public string TimeString
+    {
+        get => Time.ToString() + "ms";
+        set { }
+    }
+    private long Time { get; set; }
+    [XmlElement(ElementName = "method")]
     [JsonPropertyName("methods")]
-    public IReadOnlyList<MethodInfo> Methods { get; }
+    public List<MethodInfo> Methods { set; get; }
     
     public ThreadInfo(int id, long time, List<MethodInfo> list)
     {
@@ -20,4 +27,5 @@ public class ThreadInfo
         Time = time;
         Methods = list;
     }
+    private ThreadInfo() { }
 }
