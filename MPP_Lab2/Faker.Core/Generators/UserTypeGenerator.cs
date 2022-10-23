@@ -48,7 +48,7 @@ namespace Faker.Core.Generators
                 }
             }
             catch { }
-            throw new TypeException(type, $"Cannot create instance of {type.Name}");
+            throw new TypeException($"Cannot create instance of {type.Name}", type);
         }
 
         private void InitFields(object obj, Type type, GeneratorContext context)

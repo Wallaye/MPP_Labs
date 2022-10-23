@@ -1,10 +1,10 @@
 ﻿namespace Faker.Core.Exceptions
 {
-    internal class TypeException : Exception
+    public class TypeException : Exception
     {
         public Type Type;
 
-        public TypeException(Type type, string message) : base(message)
+        public TypeException(string message, Type type) : base(message)
         {
             Type = type;
         }

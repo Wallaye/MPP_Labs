@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace Faker.Core.Config
 {
-    internal class FakerConfig : IFakerConfig
+    public class FakerConfig : IFakerConfig
     {
         private Dictionary<string, IValueGenerator> _generators = new();
 
