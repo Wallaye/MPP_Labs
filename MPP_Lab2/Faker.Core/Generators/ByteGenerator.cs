@@ -9,7 +9,7 @@
 
         public object Generate(Type TypeToGenerate, GeneratorContext context)
         {
-            return (byte)context.Random.Next(byte.MinValue, byte.MaxValue);
+            return (byte)context.Random.Next(1, byte.MaxValue);
         }
     }
 }

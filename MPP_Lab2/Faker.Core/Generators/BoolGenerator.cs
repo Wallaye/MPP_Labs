@@ -9,7 +9,7 @@
 
         public object Generate(Type TypeToGenerate, GeneratorContext context)
         {
-            return Convert.ToBoolean(context.Random.Next(0, 2));
+            return true;
         }
     }
 }

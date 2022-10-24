@@ -17,8 +17,8 @@ namespace Faker.Core
                 this
             );
             _valueGenerators = GetGenerators(Assembly.GetExecutingAssembly());
-            AddGenerators("ListGenerator.dll");
-            AddGenerators("DateTimeGenerator.dll");
+            AddGenerators("../../../../ListGenerator/bin/Debug/net6.0/ListGenerator.dll");
+            AddGenerators("../../../../DatetimeGenerator/bin/Debug/net6.0/DateTimeGenerator.dll");
         }
 
         public Faker(IFakerConfig config)

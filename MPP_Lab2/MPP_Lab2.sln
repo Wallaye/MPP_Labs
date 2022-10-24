@@ -5,11 +5,13 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faker.Core", "Faker.Core\Faker.Core.csproj", "{D34E2F55-8722-463C-8937-7500A473EEB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListGenerator", "ListGenerator\ListGenerator.csproj", "{7A406914-5EA8-4CEE-AA55-E92276A80C08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListGenerator", "ListGenerator\ListGenerator.csproj", "{7A406914-5EA8-4CEE-AA55-E92276A80C08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeGenerator", "DateTimeGenerator\DateTimeGenerator.csproj", "{731DD486-6F18-4680-ABCD-B9405A7D9867}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DateTimeGenerator", "DateTimeGenerator\DateTimeGenerator.csproj", "{731DD486-6F18-4680-ABCD-B9405A7D9867}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faker.Example", "Faker.Example\Faker.Example.csproj", "{45AEDED5-2F28-4527-AC56-FBFD6AB7DBAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faker.Example", "Faker.Example\Faker.Example.csproj", "{45AEDED5-2F28-4527-AC56-FBFD6AB7DBAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faker.Core.Tests", "Faker.Core.Tests\Faker.Core.Tests.csproj", "{3925D940-B558-4A19-897A-2309041D48E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{45AEDED5-2F28-4527-AC56-FBFD6AB7DBAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45AEDED5-2F28-4527-AC56-FBFD6AB7DBAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45AEDED5-2F28-4527-AC56-FBFD6AB7DBAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3925D940-B558-4A19-897A-2309041D48E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3925D940-B558-4A19-897A-2309041D48E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3925D940-B558-4A19-897A-2309041D48E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3925D940-B558-4A19-897A-2309041D48E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

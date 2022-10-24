@@ -2,7 +2,7 @@
 
 namespace Faker.Core.Generators
 {
-    internal class UserTypeGenerator : IValueGenerator
+    public class UserTypeGenerator : IValueGenerator
     {
         private readonly int _recursiveLimit = 1;
         private List<Type> _types = new List<Type>();
@@ -92,7 +92,7 @@ namespace Faker.Core.Generators
         private bool CanInit(Type type) =>
             _types.Where(p => p == type).Count() <= _recursiveLimit;
 
-        private static object? GetDefaultValue(Type type) => 
+        public static object? GetDefaultValue(Type type) => 
             type.IsValueType ? Activator.CreateInstance(type) : null;
     }
 }
