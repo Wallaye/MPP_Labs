@@ -8,5 +8,6 @@ public class NamespaceData
     public NamespaceData(string name)
     {
         Name = name;
+        Classes = new();
     }
 }

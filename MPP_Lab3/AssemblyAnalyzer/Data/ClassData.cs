@@ -8,6 +8,14 @@ public class ClassData
     public List<MethodInfo> Methods { get; private set; }
     public List<PropertyInfo> Properties { get; private set; }
     public List<FieldInfo> Fields { get; private set; }
-    public List<ConstructorInfo> Constructor { get; private set; }
-    public ClassData(Type t) => this.ClassType = t;
+    public List<ConstructorInfo> Constructors { get; private set; }
+
+    public ClassData(Type t)
+    {
+        this.ClassType = t;
+        Methods = new();
+        Properties = new();
+        Fields = new();
+        Constructors = new();
+    }
 }
