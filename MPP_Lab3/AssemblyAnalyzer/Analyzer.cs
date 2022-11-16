@@ -6,28 +6,95 @@ namespace AssemblyAnalyzer;
 
 public class Analyzer
 {
-    public static AssemblyData Analyze(Assembly asm)
+    private AssemblyData asm;
+    public void SetAssembly(Assembly asm)
     {
-        AssemblyData result = new AssemblyData(asm);
-        GetNamespaces(result);
-        
-
-        return result;
+        this.asm = new AssemblyData(asm);
+    }
+    public AssemblyData Analyze()
+    {
+        GetNamespaces();
+        GetClasses();
+        return asm;
     }
 
-    private static void AddNamespace(Type type, AssemblyData asm)
+    private void AddNamespace(Type type)
     {
         var list = asm.Namespaces;
-        var name = type.Namespace;
-        if (name == null) return;
+        string name = type.Namespace ?? "global";
+        if (asm.Namespaces.Any(n => n.Name == name)) return;
         list.Add(new(name));
     }
 
-    private static void GetNamespaces(AssemblyData asm)
+    private void GetNamespaces()
     {
         foreach (var type in asm.Asm.GetTypes())
         {
-            AddNamespace(type, asm);
+            if (Attribute.GetCustomAttribute(type, typeof(CompilerGeneratedAttribute)) == null)
+                AddNamespace(type);
         }
+    }
+
+    private void GetClasses()
+    {
+        foreach (var @namespace in asm.Namespaces)
+        {
+            var types = asm.Asm.GetTypes().Select(t => t)
+                .Where(t => t.Namespace == @namespace.Name && Attribute.GetCustomAttribute(t, typeof(CompilerGeneratedAttribute)) == null)
+                .ToList();
+            foreach (var type in types)
+            {
+                @namespace.Classes.Add(new ClassData(type));
+            }
+
+            foreach (var classData in @namespace.Classes)
+            {
+                GetClassMembers(classData);
+            }
+        }
+    }
+
+    private void GetClassMembers(ClassData classData)
+    {
+        classData.Constructors.AddRange(classData.ClassType.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+            .Where(c => Attribute.GetCustomAttribute(c, typeof(CompilerGeneratedAttribute)) == null));
+                    
+        classData.Properties.AddRange(classData.ClassType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+            .Where(p => Attribute.GetCustomAttribute(p, typeof(CompilerGeneratedAttribute)) == null));
+
+        classData.Fields.AddRange(classData.ClassType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+            .Where(f => Attribute.GetCustomAttribute(f, typeof(CompilerGeneratedAttribute)) == null));
+        
+        foreach (var methodInfo in classData.ClassType.
+                     GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static))
+        {
+            if (Attribute.GetCustomAttribute(methodInfo, typeof(CompilerGeneratedAttribute)) != null) continue;
+            if (IsExtensionMethod(methodInfo))
+            {
+                Type extensionType = methodInfo.GetParameters()[0].ParameterType;
+                AddNamespace(extensionType);
+                NamespaceData namespaceData = asm.Namespaces.First(n => n.Name == extensionType.Namespace);
+                ClassData extensionClassData = new(extensionType);
+                if (!namespaceData.Classes.Any(c => c.ClassType.Name == extensionClassData.ClassType.Name))
+                {
+                    namespaceData.Classes.Add(extensionClassData);
+                }
+                else
+                {
+                    extensionClassData =
+                        namespaceData.Classes.First(c => c.ClassType.Name == extensionClassData.ClassType.Name);
+                }
+                extensionClassData.Methods.Add(new MethodData(methodInfo, true));
+            }
+            else
+            {
+                classData.Methods.Add(new MethodData(methodInfo, false));
+            }
+        }
+    }
+
+    private static bool IsExtensionMethod(MethodInfo methodInfo)
+    {
+        return methodInfo.IsDefined(typeof(ExtensionAttribute), false);
     }
 }
