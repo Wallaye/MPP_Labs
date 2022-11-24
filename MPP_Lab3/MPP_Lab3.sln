@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyAnalyzer", "AssemblyAnalyzer\AssemblyAnalyzer.csproj", "{4F5E4A4F-D145-422F-9CBB-2C7CF9BF6128}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyAnalyzerTests", "AssemblyAnalyzerTests\AssemblyAnalyzerTests.csproj", "{61ACBBEC-D930-4233-92AA-E450040E1D56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{4F5E4A4F-D145-422F-9CBB-2C7CF9BF6128}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F5E4A4F-D145-422F-9CBB-2C7CF9BF6128}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F5E4A4F-D145-422F-9CBB-2C7CF9BF6128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61ACBBEC-D930-4233-92AA-E450040E1D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61ACBBEC-D930-4233-92AA-E450040E1D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61ACBBEC-D930-4233-92AA-E450040E1D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61ACBBEC-D930-4233-92AA-E450040E1D56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

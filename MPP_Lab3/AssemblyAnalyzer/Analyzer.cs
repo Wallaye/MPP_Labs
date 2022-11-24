@@ -21,8 +21,8 @@ public class Analyzer
     private void AddNamespace(Type type)
     {
         var list = asm.Namespaces;
-        string name = type.Namespace ?? "global";
-        if (asm.Namespaces.Any(n => n.Name == name)) return;
+        string? name = type.Namespace;
+        if (asm.Namespaces.Any(n => n.Name == name || name == null)) return;
         list.Add(new(name));
     }
 
