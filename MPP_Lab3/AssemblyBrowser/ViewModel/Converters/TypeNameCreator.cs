@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AssemblyBrowser.ViewModel.Converters;
 
-public static class TypenameBuilder
+public static class TypeNameCreator
 {
     public static string BuildTypename(string name, Type[] genericArgs, bool hasDecoratedName)
     {
@@ -15,7 +15,4 @@ public static class TypenameBuilder
         }
         return name;
     }
-    
-    
-    
 }

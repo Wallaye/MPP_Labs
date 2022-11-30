@@ -4,6 +4,7 @@ using System.Reflection;
 using AssemblyAnalyzer.Data;
 using AssemblyAnalyzer;
 using Microsoft.Win32;
+using System.Collections.Generic;
 
 namespace AssemblyBrowser.Model;
 
@@ -31,17 +32,5 @@ public class Model
         a.SetAssembly(asm);
         return a.Analyze();
     }
-}
 
-public static class MyExtensions
-{
-    public static int WordCount(this string str)
-    {
-        return str.Split(new char[] { ' ', '.', '?' },
-            StringSplitOptions.RemoveEmptyEntries).Length;
-    }
-    public static int Asd()
-    {
-        return 0;
-    }
 }

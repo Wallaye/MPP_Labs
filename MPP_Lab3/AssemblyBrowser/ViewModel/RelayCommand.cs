@@ -15,7 +15,7 @@ class RelayCommand<T> : ICommand
 
     private Action<T> executeAction;
 
-    public RelayCommand(Action<T> executeAction, Func<bool> canExecuteAction) 
+    public RelayCommand(Action<T> executeAction, Func<bool> canExecuteAction)
     {
         if (executeAction == null)
             throw new ArgumentNullException(nameof(executeAction));

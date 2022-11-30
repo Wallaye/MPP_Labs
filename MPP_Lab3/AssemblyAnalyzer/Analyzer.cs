@@ -37,8 +37,9 @@ public class Analyzer
 
     private void GetClasses()
     {
-        foreach (var @namespace in asm.Namespaces)
+        for (int i = 0; i < asm.Namespaces.Count; i++)
         {
+            var @namespace = asm.Namespaces[i];
             var types = asm.Asm.GetTypes().Select(t => t)
                 .Where(t => t.Namespace == @namespace.Name && Attribute.GetCustomAttribute(t, typeof(CompilerGeneratedAttribute)) == null)
                 .ToList();

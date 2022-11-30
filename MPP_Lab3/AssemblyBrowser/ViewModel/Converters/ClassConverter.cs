@@ -10,7 +10,8 @@ public class ClassConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         ClassData c = value as ClassData;
-        return TypenameBuilder.BuildTypename(c.ClassType.Name, c.ClassType.GetGenericArguments(),true);
+        string result = IdentificatorFormatter.GetClassIndentificator(c);
+        return result + " " + TypeNameCreator.BuildTypename(c.ClassType.Name, c.ClassType.GetGenericArguments(),true);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
