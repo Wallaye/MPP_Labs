@@ -1,0 +1,58 @@
+﻿<Window x:Class="AssemblyBrowser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AssemblyBrowser"
+        xmlns:reflection="clr-namespace:System.Reflection;assembly=mscorlib"
+        xmlns:converters="clr-namespace:AssemblyBrowser.ViewModel.Converters"
+        xmlns:data="clr-namespace:AssemblyAnalyzer.Data;assembly=AssemblyAnalyzer"
+        mc:Ignorable="d"
+        Title="Assembly browser" Height="450" Width="800">
+    <Window.Resources>
+        <converters:FieldConverter x:Key="FieldConverter"/>
+        <converters:MethodConverter x:Key="MethodConverter"/>
+        <converters:ClassConverter x:Key="ClassConverter"/>
+        <converters:ConstructorConverter x:Key="ConstructorConverter"/>
+    </Window.Resources>
+    <Grid>
+  
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" >
+            <MenuItem Header="Load assembly" Padding="3" Command="{Binding SelectAssembly}"/>
+        </Menu>
+        <TreeView Grid.Row="1" BorderThickness="0">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type reflection:FieldInfo}">
+                    <TextBlock Text="{Binding Converter={StaticResource FieldConverter}}"/>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type reflection:PropertyInfo}">
+                    <TextBlock Text="{Binding Converter={StaticResource FieldConverter}}"/>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type data:MethodData}">
+                    <TextBlock Text="{Binding Converter={StaticResource MethodConverter}}"/>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type reflection:ConstructorInfo}">
+                    <TextBlock Text="{Binding Converter={StaticResource ConstructorConverter}}"/>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type data:NamespaceData}" ItemsSource="{Binding Classes}">
+                    <TextBlock Text="{Binding Name}"/>
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type data:ClassData}">
+                            <TreeViewItem Header="{Binding Converter={StaticResource ClassConverter}}">
+                                <TreeViewItem Header="Constructors" ItemsSource="{Binding Constructors}"/>
+                                <TreeViewItem Header="Fields" ItemsSource="{Binding Fields}"/>
+                                <TreeViewItem Header="Properties" ItemsSource="{Binding Properties}"/>
+                                <TreeViewItem Header="Methods" ItemsSource="{Binding Methods}"/>
+                            </TreeViewItem>
+                        </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+            <TreeViewItem ItemsSource="{Binding SelectedAssemblyInfo.Namespaces}" Header="{Binding SelectedAssemblyInfo.Asm.FullName}"/>
+        </TreeView>
+    </Grid>
+</Window>
