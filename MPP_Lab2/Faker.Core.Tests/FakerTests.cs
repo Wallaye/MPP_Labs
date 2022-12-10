@@ -125,7 +125,7 @@ namespace Faker.Core.Tests
 
         [Test]
         [TestCase(typeof(List<List<List<int>>>))]
-        [TestCase(typeof(List<List<decimal>>))]
+        [TestCase(typeof(List<List<int>>))]
         public void CreateListTest(Type type)
         {
             var list = (IList)_faker.Create(type);
