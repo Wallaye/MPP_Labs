@@ -57,14 +57,17 @@ public class Analyzer
 
     private void GetClassMembers(ClassData classData)
     {
-        classData.Constructors.AddRange(classData.ClassType.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
-            .Where(c => Attribute.GetCustomAttribute(c, typeof(CompilerGeneratedAttribute)) == null));
+        if (!classData.IsExtension)
+        {
+            classData.Constructors.AddRange(classData.ClassType.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+                .Where(c => Attribute.GetCustomAttribute(c, typeof(CompilerGeneratedAttribute)) == null));
                     
-        classData.Properties.AddRange(classData.ClassType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
-            .Where(p => Attribute.GetCustomAttribute(p, typeof(CompilerGeneratedAttribute)) == null));
+            classData.Properties.AddRange(classData.ClassType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+                .Where(p => Attribute.GetCustomAttribute(p, typeof(CompilerGeneratedAttribute)) == null));
 
-        classData.Fields.AddRange(classData.ClassType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
-            .Where(f => Attribute.GetCustomAttribute(f, typeof(CompilerGeneratedAttribute)) == null));
+            classData.Fields.AddRange(classData.ClassType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+                .Where(f => Attribute.GetCustomAttribute(f, typeof(CompilerGeneratedAttribute)) == null));
+        }
         
         foreach (var methodInfo in classData.ClassType.
                      GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static))
@@ -75,7 +78,7 @@ public class Analyzer
                 Type extensionType = methodInfo.GetParameters()[0].ParameterType;
                 AddNamespace(extensionType);
                 NamespaceData namespaceData = asm.Namespaces.First(n => n.Name == extensionType.Namespace);
-                ClassData extensionClassData = new(extensionType);
+                ClassData extensionClassData = new(extensionType, true);
                 if (!namespaceData.Classes.Any(c => c.ClassType.Name == extensionClassData.ClassType.Name))
                 {
                     namespaceData.Classes.Add(extensionClassData);
@@ -85,11 +88,15 @@ public class Analyzer
                     extensionClassData =
                         namespaceData.Classes.First(c => c.ClassType.Name == extensionClassData.ClassType.Name);
                 }
+                
                 extensionClassData.Methods.Add(new MethodData(methodInfo, true));
             }
             else
             {
-                classData.Methods.Add(new MethodData(methodInfo, false));
+                if (!classData.IsExtension)
+                {
+                    classData.Methods.Add(new MethodData(methodInfo, false));
+                }
             }
         }
     }

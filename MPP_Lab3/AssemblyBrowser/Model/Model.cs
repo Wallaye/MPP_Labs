@@ -30,7 +30,7 @@ public class Model
         }
         Analyzer a = new Analyzer();
         a.SetAssembly(asm);
-        return a.Analyze();
+        var result = a.Analyze();
+        return result;
     }
-
 }

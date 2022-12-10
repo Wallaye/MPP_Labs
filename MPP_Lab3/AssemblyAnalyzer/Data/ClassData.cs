@@ -9,13 +9,15 @@ public class ClassData
     public List<PropertyInfo> Properties { get; private set; }
     public List<FieldInfo> Fields { get; private set; }
     public List<ConstructorInfo> Constructors { get; private set; }
+    public bool IsExtension { get; private set; }
 
-    public ClassData(Type t)
+    public ClassData(Type t, bool Ext = false)
     {
         this.ClassType = t;
         Methods = new();
         Properties = new();
         Fields = new();
         Constructors = new();
+        IsExtension = Ext;
     }
 }
