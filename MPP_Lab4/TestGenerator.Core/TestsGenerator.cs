@@ -28,10 +28,10 @@ public static class TestsGenerator
         readDirectoryBlock.Post(GeneratorOptions.SourceDir);
         readDirectoryBlock.Complete();
 
-        return readDirectoryBlock.Completion;
+        return writeTestsBlock.Completion;
     }
     
-    public static TransformManyBlock<string, string> ReadDirectoryBlock()
+    private static TransformManyBlock<string, string> ReadDirectoryBlock()
     {
         return new TransformManyBlock<string, string>(path =>
         {
@@ -44,7 +44,7 @@ public static class TestsGenerator
         });
     }
 
-    public static TransformBlock<string, string> ReadFileBlock()
+    private static TransformBlock<string, string> ReadFileBlock()
     {
         return new TransformBlock<string, string>(async fileName =>
         {
@@ -63,7 +63,7 @@ public static class TestsGenerator
         }, new ExecutionDataflowBlockOptions() { MaxDegreeOfParallelism = GeneratorOptions.MaxThreadsToRead});
     }
 
-    public static TransformManyBlock<string, MethodData> SplitClassesBlock()
+    private static TransformManyBlock<string, MethodData> SplitClassesBlock()
     {
         return new TransformManyBlock<string, MethodData>(GetClasses);
     }
@@ -82,7 +82,7 @@ public static class TestsGenerator
         });
     }
 
-    public static TransformBlock<MethodData, TestFile> GenerateTestsBlock()
+    private static TransformBlock<MethodData, TestFile> GenerateTestsBlock()
     {
         return new TransformBlock<MethodData, TestFile>(GenerateTests);
     }
@@ -521,7 +521,7 @@ public static class TestsGenerator
         return new TestFile(classDeclaration.Identifier.Text + "Test.cs", testCode.ToFullString());
     }
 
-    public static ActionBlock<TestFile> WriteTestsBlock()
+    private static ActionBlock<TestFile> WriteTestsBlock()
     {
         return new ActionBlock<TestFile>(async testFile =>
         {
