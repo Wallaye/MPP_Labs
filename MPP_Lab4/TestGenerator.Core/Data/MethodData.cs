@@ -4,6 +4,6 @@ namespace TestGenerator.Core.Data;
 
 public class MethodData
 {
-    public ClassDeclarationSyntax ClassDeclarationSyntax { get; }
-    public UsingDirectiveSyntax UsingDirectiveSyntax { get; }
+    public ClassDeclarationSyntax ClassDeclarationSyntax { get; set; }
+    public UsingDirectiveSyntax UsingDirectiveSyntax { get; set; }
 }
