@@ -40,7 +40,7 @@ public static class TestsGenerator
                 throw new GeneratorOptionsException("No such source directory", GeneratorOptions.SourceDir);
             }
 
-            return Directory.EnumerateFiles(path);
+            return Directory.EnumerateFiles(path, "*.cs");
         });
     }
 
